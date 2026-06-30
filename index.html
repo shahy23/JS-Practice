@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Learning Projects</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ════ NAVBAR ════ -->
+    <nav>
+      <a
+        class="nav-brand"
+        href="#"
+        onclick="
+          showPage('home');
+          return false;
+        "
+      >
+        JS<span> Projects</span>
+      </a>
+      <ul class="nav-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('clock')">Clock</a></li>
+        <li><a onclick="showPage('stopwatch')">Stopwatch</a></li>
+        <li><a onclick="showPage('calc')">Calculator</a></li>
+        <li><a onclick="showPage('todo')">To-Do</a></li>
+        <li><a onclick="showPage('validation')">Validation</a></li>
+      </ul>
+      <button id="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+    </nav>
+
+    <!-- ════ HOME PAGE ════ -->
+    <div id="home" class="page active">
+      <div class="proj-page">
+        <div class="home-hero">
+          <p class="home-tagline">Learn by building</p>
+          <h1 class="home-title">
+            Welcome to<br /><span class="hl">JS Learning Projects</span>
+          </h1>
+          <p class="home-sub">
+            A collection of hands-on JavaScript projects built with HTML, CSS,
+            and vanilla JS. Pick any project from the nav bar or the cards below
+            and explore the code.
+          </p>
+          <!-- Live clock on home -->
+          <div class="home-clock-wrap">
+            <div id="home-time">00:00:00</div>
+            <div id="home-day">Loading…</div>
+          </div>
+        </div>
+
+        <!-- Project cards -->
+        <div class="projects-grid">
+          <div class="proj-card" onclick="showPage('clock')">
+            <div class="icon">🕐</div>
+            <h3>Clock</h3>
+            <p>Live digital clock showing time and day in real time.</p>
+          </div>
+          <div class="proj-card" onclick="showPage('stopwatch')">
+            <div class="icon">⏱️</div>
+            <h3>Stopwatch</h3>
+            <p>Start, stop, reset, and record laps with a precise timer.</p>
+          </div>
+          <div class="proj-card" onclick="showPage('calc')">
+            <div class="icon">🧮</div>
+            <h3>Calculator</h3>
+            <p>Fully functional calculator with expression preview.</p>
+          </div>
+          <div class="proj-card" onclick="showPage('todo')">
+            <div class="icon">📝</div>
+            <h3>To-Do List</h3>
+            <p>Add, complete, and delete tasks with live counters.</p>
+          </div>
+          <div class="proj-card" onclick="showPage('validation')">
+            <div class="icon">✅</div>
+            <h3>Form Validation</h3>
+            <p>Real-time form validation with password strength meter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ CLOCK PAGE ════ -->
+    <div id="clock" class="page">
+      <div class="proj-page">
+        <h2 class="proj-title">Clock <span class="dot">●</span></h2>
+        <div class="clock-card">
+          <div id="clock-display">00:00:00</div>
+          <div id="clock-date"></div>
+          <div id="clock-day-name"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ STOPWATCH PAGE ════ -->
+    <div id="stopwatch" class="page">
+      <div class="proj-page">
+        <h2 class="proj-title">Stopwatch <span class="dot">●</span></h2>
+        <div class="sw-card">
+          <div id="sw-display">00:00:00</div>
+          <div class="btn-row">
+            <button class="btn btn-accent" onclick="swStart()">Start</button>
+            <button class="btn" onclick="swStop()">Stop</button>
+            <button class="btn" onclick="swLap()">Lap</button>
+            <button class="btn" onclick="swReset()">Reset</button>
+          </div>
+          <div class="sw-laps" id="sw-laps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ CALCULATOR PAGE ════ -->
+    <div id="calc" class="page">
+      <div class="proj-page">
+        <h2 class="proj-title">Calculator <span class="dot">●</span></h2>
+        <div class="calc-card">
+          <div class="calc-screen">
+            <div id="calc-expr"></div>
+            <div id="calc-result">0</div>
+          </div>
+          <div class="calc-grid">
+            <!-- Row 1 -->
+            <button class="c-btn clr" onclick="calcClear()">AC</button>
+            <button class="c-btn op" onclick="calcSign()">+/−</button>
+            <button class="c-btn op" onclick="calcPercent()">%</button>
+            <button class="c-btn op" onclick="calcOp('/')">÷</button>
+            <!-- Row 2 -->
+            <button class="c-btn" onclick="calcNum('7')">7</button>
+            <button class="c-btn" onclick="calcNum('8')">8</button>
+            <button class="c-btn" onclick="calcNum('9')">9</button>
+            <button class="c-btn op" onclick="calcOp('*')">×</button>
+            <!-- Row 3 -->
+            <button class="c-btn" onclick="calcNum('4')">4</button>
+            <button class="c-btn" onclick="calcNum('5')">5</button>
+            <button class="c-btn" onclick="calcNum('6')">6</button>
+            <button class="c-btn op" onclick="calcOp('-')">−</button>
+            <!-- Row 4 -->
+            <button class="c-btn" onclick="calcNum('1')">1</button>
+            <button class="c-btn" onclick="calcNum('2')">2</button>
+            <button class="c-btn" onclick="calcNum('3')">3</button>
+            <button class="c-btn op" onclick="calcOp('+')">+</button>
+            <!-- Row 5 -->
+            <button class="c-btn wide" onclick="calcNum('0')">0</button>
+            <button class="c-btn" onclick="calcDot()">.</button>
+            <button
+              class="c-btn eq"
+              onclick="calcEquals()"
+              style="grid-column: span 1"
+            >
+              =
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ TODO LIST PAGE ════ -->
+    <div id="todo" class="page">
+      <div class="proj-page">
+        <h2 class="proj-title">To-Do List <span class="dot">●</span></h2>
+        <div class="todo-card">
+          <div class="todo-input-row">
+            <!-- addTodo triggered by Enter or button -->
+            <input
+              id="todo-input"
+              type="text"
+              placeholder="Add a new task…"
+              onkeydown="if (event.key === 'Enter') addTodo();"
+            />
+            <button class="btn btn-accent" onclick="addTodo()">Add</button>
+          </div>
+          <ul class="todo-list" id="todo-list"></ul>
+          <div class="todo-stats">
+            <span id="todo-count">0 tasks</span>
+            <button class="todo-clear" onclick="clearDone()">Clear done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ FORM VALIDATION PAGE ════ -->
+    <div id="validation" class="page">
+      <div class="proj-page">
+        <h2 class="proj-title">Form Validation <span class="dot">●</span></h2>
+        <div class="form-card">
+          <!-- Username -->
+          <div class="form-group" id="fg-username">
+            <label>Username</label>
+            <input
+              type="text"
+              id="f-username"
+              placeholder="at least 4 characters"
+              oninput="validateUsername()"
+            />
+            <span class="hint" id="h-username"></span>
+          </div>
+          <!-- Email -->
+          <div class="form-group" id="fg-email">
+            <label>Email</label>
+            <input
+              type="text"
+              id="f-email"
+              placeholder="you@example.com"
+              oninput="validateEmail()"
+            />
+            <span class="hint" id="h-email"></span>
+          </div>
+          <!-- Password -->
+          <div class="form-group" id="fg-password">
+            <label>Password</label>
+            <input
+              type="password"
+              id="f-password"
+              placeholder="min 8 characters"
+              oninput="validatePassword()"
+            />
+            <div class="strength-bar">
+              <div class="strength-fill" id="strength-fill"></div>
+            </div>
+            <span class="hint" id="h-password"></span>
+          </div>
+          <!-- Confirm Password -->
+          <div class="form-group" id="fg-confirm">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              id="f-confirm"
+              placeholder="repeat your password"
+              oninput="validateConfirm()"
+            />
+            <span class="hint" id="h-confirm"></span>
+          </div>
+          <!-- Role -->
+          <div class="form-group" id="fg-role">
+            <label>Role</label>
+            <select id="f-role" onchange="validateRole()">
+              <option value="">— select a role —</option>
+              <option value="dev">Developer</option>
+              <option value="design">Designer</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="hint" id="h-role"></span>
+          </div>
+          <button
+            class="btn btn-accent"
+            style="width: 100%; margin-top: 0.5rem"
+            onclick="submitForm()"
+          >
+            Register
+          </button>
+          <div
+            id="form-msg"
+            style="
+              text-align: center;
+              font-size: 0.85rem;
+              margin-top: 0.75rem;
+              min-height: 1.2em;
+              color: var(--accent);
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Created by Eng/ <span>Shahinda Eldawi</span>
+      <div class="footer-icons">
+        <a
+          href="https://www.linkedin.com/in/shahinda-gamal-576308215/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="LinkedIn"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.27c-.96 0-1.73-.78-1.73-1.73s.77-1.73 1.73-1.73 1.73.78 1.73 1.73-.77 1.73-1.73 1.73zm13.5 10.27h-3v-4.5c0-1.07-.02-2.45-1.49-2.45-1.49 0-1.72 1.16-1.72 2.37v4.58h-3v-9h2.88v1.23h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59v4.74z"
+            />
+          </svg>
+        </a>
+        <a
+          href="mailto:shahindagamal23@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Email"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20 4h-16c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm0 4l-8 5-8-5v-2l8 5 8-5v2z"
+            />
+          </svg>
+        </a>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
